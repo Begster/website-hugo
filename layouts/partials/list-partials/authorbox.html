@@ -1,0 +1,70 @@
+<div class="card post author text-center mt-5 mb-2">
+  <div class="card-body">
+    <a href="{{.Permalink}}">
+      {{if hugo.IsProduction}}
+        <img alt="{{title .Title}}" src="https://tgdp.imgix.net{{ .Params.image }}?w=90&auto=compress,format" class="avatar avatar-90 photo" width="90">
+      {{else}}
+        <img alt="{{title .Title}}" src="{{ .Params.image }}" class="avatar avatar-90 photo" width="90">
+      {{end}}
+    </a>
+
+    {{ $authorPosts := where (where .Site.Pages "Type" "blog") "Params.author" "intersect" (slice .File.BaseFileName) }}
+    <h2 class="card-title">
+      <a href="{{.Permalink}}" class="contributor-link">
+        {{ .Title }}<br>
+        <small>{{len $authorPosts}}&nbsp;{{if gt $authorPosts 1}}posts{{else}}post{{end}}</small>
+      </a>
+    </h2>
+    
+    <div class="card-text d-block">{{ .Params.description | markdownify }}</div>
+
+    {{ with .Params.web }}
+      <div class="card-text d-block mt-1">
+        <a target="_blank" href="{{ . }}">{{ . }}</a>
+      </div>  
+    {{ end }}
+  
+    <div class="profile-icons pt-2">
+      {{ with index .Params.social "rss" }}
+      <a target="_blank" href="{{.}}">
+        <i class="fa fa-rss"></i>
+      </a>&nbsp;
+      {{end}}
+      {{ with index .Params.social "email" }}
+      <a href="mailto:{{.}}">
+        <i class="fa fa-envelope"></i>
+      </a>&nbsp;
+      {{end}}
+      {{ with index .Params.social "github" }}
+      <a target="_blank" href="https://github.com/{{.}}">
+        <i class="fab fa-github"></i>
+      </a>&nbsp;
+      {{ end }}
+      {{ with index .Params.social "gitlab" }}
+      <a target="_blank" href="https://gitlab.com/{{.}}">
+        <i class="fab fa-gitlab"></i>
+      </a>&nbsp;
+      {{end}}
+      {{ with index .Params.social "linkedin" }}
+      <a target="_blank" href="https://www.linkedin.com/in/{{.}}">
+        <i class="fab fa-linkedin"></i>
+      </a>&nbsp;
+      {{ end }}
+      {{ with index .Params.social "medium" }}
+      <a target="_blank" href="https://medium.com/{{.}}">
+        <i class="fab fa-medium"></i>
+      </a>&nbsp;
+      {{ end }}
+      {{ with index .Params.social "twitter" }}
+      <a target="_blank" href="https://www.twitter.com/{{.}}">
+        <i class="fab fa-twitter"></i>
+      </a>&nbsp;
+      {{ end }}
+      {{ with index .Params.social "instagram" }}
+      <a target="_blank" href="https://www.instagram.com/{{.}}">
+        <i class="fab fa-instagram"></i>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</div>

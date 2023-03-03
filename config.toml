@@ -1,10 +1,12 @@
-baseURL = "/"
+baseURL = "https://thegooddocsproject.dev"
 title = "The Good Docs Project"
-
 enableRobotsTXT = true
+summaryLength = 25
+navigateToChanged = true
+enableEmoji = true
 
 # Hugo allows theme composition (and inheritance). The precedence is from left to right.
-theme = ["docsy"]
+# theme = ["docsy"]
 
 # Will give values to .Lastmod etc.
 enableGitInfo = true
@@ -15,8 +17,6 @@ defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 # Useful when translating.
 enableMissingTranslationPlaceholders = true
-
-disableKinds = ["taxonomy", "taxonomyTerm"]
 
 # Highlighting config
 pygmentsCodeFences = true
@@ -46,9 +46,11 @@ blog = "/:section/:slug/"
       taskList = true
       typographer = true
     [markup.goldmark.parser]
-      attribute = true
       autoHeadingID = true
       autoHeadingIDType = "github"
+      [markup.goldmark.parser.attribute]
+        block = true
+        title = true
     [markup.goldmark.renderer]
       hardWraps = false
       unsafe = true
@@ -59,11 +61,6 @@ blog = "/:section/:slug/"
 resampleFilter = "CatmullRom"
 quality = 75
 anchor = "smart"
-
-[services]
-[services.googleAnalytics]
-# Comment out the next line to disable GA tracking. Also disables the feature described in [params.ui.feedback].
-# id = "UA-00000000-0"
 
 # Language configuration
 
@@ -81,6 +78,8 @@ time_format_blog = "02.01.2006"
 
 [params]
 copyright = "The Good Docs Project"
+logo = "/images/logo.png"
+
 # privacy_policy = ""
 
 # First one is picked as the Twitter card image if not set on page.
@@ -90,13 +89,13 @@ copyright = "The Good Docs Project"
 # This menu appears only if you have at least one [params.versions] set.
 version_menu = "Releases"
 
-# Flag used in the "version-banner" partial to decide whether to display a 
+# Flag used in the "version-banner" partial to decide whether to display a
 # banner on every page indicating that this is an archived version of the docs.
 # Set this flag to "true" if you want to display the banner.
 archived_version = false
 
 # The version number for the version of the docs represented in this doc set.
-# Used in the "version-banner" partial to display a version number for the 
+# Used in the "version-banner" partial to display a version number for the
 # current doc set.
 version = "0.0"
 
@@ -108,6 +107,7 @@ url_latest_version = "https://example.com"
 github_repo = "https://github.com/thegooddocsproject/website-hugo"
 # An optional link to a related project repo. For example, the sibling repository where your product code lives.
 github_project_repo = "https://github.com/thegooddocsproject/templates"
+github_branch = "main"
 
 # Specify a value here if your content directory is not in your repo's root directory
 # github_subdir = ""
@@ -148,7 +148,7 @@ yes = 'Glad to hear it! Please <a href="https://github.com/USERNAME/REPOSITORY/i
 no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
 
 # Adds a reading time to the top of each doc.
-# If you want this feature, but occasionally need to remove the Reading time from a single page, 
+# If you want this feature, but occasionally need to remove the Reading time from a single page,
 # add "hide_readingtime: true" to the page's front matter
 [params.ui.readingtime]
 enable = false
@@ -184,6 +184,20 @@ enable = false
   desc = "Chat with other project members."
 [[params.links.developer]]
 	name = "Slack Join Link"
-	url = "https://join.slack.com/t/thegooddocs/shared_invite/enQtODkyNjI5MDc0NjE0LTUyNGFiZmU1MjIzNDMwN2E3NmQwODQwZmRkYWI5MDhlMzdjYzg4Nzg4YjM3ODA0NGE4MTgyYzdkMGViMTI2MDM"
+	url = "https://join.slack.com/t/thegooddocs/shared_invite/zt-be2gay0m-Ukq_5SI0MHp20IQP3auQjg"
 	icon = "fab fa-slack"
   desc = "To join The Good Docs Project Slack Workspace."
+
+[module]
+  proxy = "direct"
+  # uncomment line below for temporary local development of module
+  # replacements = "github.com/google/docsy -> ../../docsy"
+  [module.hugoVersion]
+    extended = true
+    min = "0.75.0"
+  [[module.imports]]
+    path = "github.com/google/docsy"
+    disable = false
+  [[module.imports]]
+    path = "github.com/google/docsy/dependencies"
+    disable = false
